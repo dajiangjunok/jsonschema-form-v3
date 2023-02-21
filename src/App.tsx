@@ -160,7 +160,7 @@ export default defineComponent({
                 onChange={handleSchemaChange}
                 title="Schema"
               />
-              <div class={classes.uiAndValue}>
+              {/* <div class={classes.uiAndValue}>
                 <MonacoEditor
                   code={demo.uiSchemaCode}
                   class={classes.codePanel}
@@ -173,17 +173,14 @@ export default defineComponent({
                   onChange={handleDataChange}
                   title="Value"
                 />
-              </div>
+              </div> */}
             </div>
             <div class={classes.form}>
-              <SchemaForm />
-              {/* <SchemaForm
+              <SchemaForm
                 schema={demo.schema!}
-                uiSchema={demo.uiSchema!}
                 onChange={handleChange}
-                contextRef={methodRef}
                 value={demo.data}
-              /> */}
+              />
             </div>
           </div>
         </div>
