@@ -28,6 +28,7 @@ specifiers:
   jss-preset-default: ^10.10.0
   lint-staged: ^11.1.2
   monaco-editor: ^0.35.0
+  monaco-editor-webpack-plugin: ^7.0.1
   prettier: ^2.4.1
   ts-jest: ^27.0.4
   typescript: ~4.5.5
@@ -66,6 +67,7 @@ devDependencies:
   jest: 27.5.1
   lint-staged: 11.2.6
   monaco-editor: 0.35.0
+  monaco-editor-webpack-plugin: 7.0.1_monaco-editor@0.35.0
   prettier: 2.8.4
   ts-jest: 27.1.5_vv26jhn7qo5cgutfchk376fp4e
   typescript: 4.5.5
@@ -7159,6 +7161,16 @@ packages:
 
   /module-alias/2.2.2:
     resolution: {integrity: sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==}
+    dev: true
+
+  /monaco-editor-webpack-plugin/7.0.1_monaco-editor@0.35.0:
+    resolution: {integrity: sha512-M8qIqizltrPlIbrb73cZdTWfU9sIsUVFvAZkL3KGjAHmVWEJ0hZKa/uad14JuOckc0GwnCaoGHvMoYtJjVyCzw==}
+    peerDependencies:
+      monaco-editor: '>= 0.31.0'
+      webpack: ^4.5.0 || 5.x
+    dependencies:
+      loader-utils: 2.0.4
+      monaco-editor: 0.35.0
     dev: true
 
   /monaco-editor/0.35.0:

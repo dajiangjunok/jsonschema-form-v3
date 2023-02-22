@@ -54,8 +54,7 @@ const useStyles = createUseStyles({
     backgroundColor: "transparent",
     cursor: "pointer",
     display: "inline-block",
-    padding: 15,
-    borderRadius: 5,
+    padding: 4,
     "&:hover": {
       background: "#efefef",
     },
@@ -100,13 +99,12 @@ export default defineComponent({
       demo.uiSchemaCode = toJson(d.uiSchema);
     });
 
-    const methodRef: Ref<any> = ref();
-
     const classesRef = useStyles();
 
     const handleChange = (v: any) => {
       demo.data = v;
       demo.dataCode = toJson(v);
+      console.log(demo.data);
     };
 
     function handleCodeChange(
@@ -129,8 +127,6 @@ export default defineComponent({
     return () => {
       const classes = classesRef.value;
       const selected = selectedRef.value;
-
-      console.log(methodRef);
 
       return (
         // <StyleThemeProvider>
@@ -160,7 +156,7 @@ export default defineComponent({
                 onChange={handleSchemaChange}
                 title="Schema"
               />
-              {/* <div class={classes.uiAndValue}>
+              <div class={classes.uiAndValue}>
                 <MonacoEditor
                   code={demo.uiSchemaCode}
                   class={classes.codePanel}
@@ -173,11 +169,11 @@ export default defineComponent({
                   onChange={handleDataChange}
                   title="Value"
                 />
-              </div> */}
+              </div>
             </div>
             <div class={classes.form}>
               <SchemaForm
-                schema={demo.schema!}
+                schema={demo.schema}
                 onChange={handleChange}
                 value={demo.data}
               />
