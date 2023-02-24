@@ -11,7 +11,6 @@ const handleChange = (e: any) => {
 
 <template>
   <div class="string-field">
-    <h1>{{ schema.type }}</h1>
     <input :value="value" type="text" @input="handleChange" />
   </div>
 </template>

@@ -16,6 +16,17 @@ export default {
         type: "string",
         minLength: 10,
       },
+      staticArray: {
+        type: "array",
+        items: [
+          {
+            type: "string",
+          },
+          {
+            type: "number",
+          },
+        ],
+      },
     },
   },
   uiSchema: {
@@ -30,11 +41,15 @@ export default {
       telephone: {
         title: "Telephone",
       },
+      staticArray: {
+        title: "StaticArray",
+      },
     },
   },
   default: {
     firstName: "Chuck",
     lastName: "Norris",
+    staticArray: [],
     age: 75,
     bio: "Roundhouse kicking asses since 1940",
     password: "noneed",

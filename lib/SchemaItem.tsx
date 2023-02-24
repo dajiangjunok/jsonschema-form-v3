@@ -5,6 +5,7 @@ import { retrieveSchema } from "./utils";
 import NumberField from "./fields/NumberFiled.vue";
 import StringField from "./fields/StringFiled.vue";
 import ObjectFiled from "./fields/ObjectFiled";
+import ArrayFiled from "./fields/ArrayFiled";
 
 export default defineComponent({
   name: "SchemaItem",
@@ -33,6 +34,10 @@ export default defineComponent({
         }
         case SchemaTypes.OBJECT: {
           Component = ObjectFiled;
+          break;
+        }
+        case SchemaTypes.ARRAY: {
+          Component = ArrayFiled;
           break;
         }
         default: {

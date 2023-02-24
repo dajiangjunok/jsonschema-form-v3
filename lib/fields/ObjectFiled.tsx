@@ -1,13 +1,13 @@
 import { defineComponent, inject } from "vue";
 import { FiledPropsDefine } from "../types";
-import { SchemaFormContextKey } from "../context";
+import { useVJSFContext } from "../context";
 import { isObject } from "../utils";
 
 export default defineComponent({
   name: "ObjectFiled",
   props: FiledPropsDefine,
   setup(props) {
-    const context: any = inject(SchemaFormContextKey);
+    const context = useVJSFContext();
 
     const handleObjectFieldChange = (key: string, v: any) => {
       const value: any = isObject(props.value) ? props.value : {};
