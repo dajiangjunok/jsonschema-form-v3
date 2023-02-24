@@ -27,6 +27,20 @@ export default {
           },
         ],
       },
+      singleTypeArray: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            name: {
+              type: "string",
+            },
+            age: {
+              type: "number",
+            },
+          },
+        },
+      },
     },
   },
   uiSchema: {
@@ -53,5 +67,6 @@ export default {
     age: 75,
     bio: "Roundhouse kicking asses since 1940",
     password: "noneed",
+    singleTypeArray: [{ name: "Tom", age: 12 }],
   },
 };
