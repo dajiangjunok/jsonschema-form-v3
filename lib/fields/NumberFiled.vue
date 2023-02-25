@@ -5,7 +5,8 @@ import { FiledPropsDefine } from "../types";
 const props = defineProps(FiledPropsDefine);
 
 const handleChange = (e: any) => {
-  props.onChange(Number(e.target.value));
+  const number = Number(e.target.value);
+  props.onChange(number);
 };
 </script>
 
