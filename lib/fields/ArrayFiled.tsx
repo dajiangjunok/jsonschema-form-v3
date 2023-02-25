@@ -5,8 +5,6 @@ import { FiledPropsDefine, Schema } from "../types";
 
 import { useVJSFContext } from "../context";
 
-import SelectionWidget from "../widgets/Selection";
-
 const useStyles = createUseStyles({
   container: {
     border: "1px solid #eee",
@@ -60,6 +58,7 @@ const ArrayItemWrapper = defineComponent({
 
     return () => {
       const classes = classesRef.value;
+
       return (
         <div class={classes.container}>
           <div class={classes.actions}>
@@ -159,6 +158,7 @@ export default defineComponent({
       const { schema, rootSchema, value, onChange } = props;
 
       const SchemaItem = context.SchemaItem;
+      const SelectionWidget = context.theme.widgets.SelectionWidget;
 
       const isMultiType = Array.isArray(schema.items);
       const isSelect = schema.items && (schema.items as any).enum;
