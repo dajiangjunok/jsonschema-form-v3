@@ -4,6 +4,14 @@ import StringFiled from "./fields/StringFiled.vue";
 import ArrayFiled from "./fields/ArrayFiled";
 import ObjectFiled from "./fields/ObjectFiled";
 import SelectionWidget from "./widgets/Selection";
+import ThemeProvider from "./Theme";
 
 export default SchemaForm;
-export { NumberFiled, StringFiled, ArrayFiled, ObjectFiled, SelectionWidget };
+export {
+  NumberFiled,
+  StringFiled,
+  ArrayFiled,
+  ObjectFiled,
+  ThemeProvider,
+  SelectionWidget,
+};

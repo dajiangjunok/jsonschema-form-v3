@@ -5,7 +5,7 @@ import MonacoEditor from "./components/MonacoEditor";
 
 import demos from "./demos/index";
 
-import SchemaForm from "../lib";
+import SchemaForm, { ThemeProvider } from "../lib";
 import themeDefault from "../lib/theme-default";
 
 // TODO: 在lib中export
@@ -32,7 +32,7 @@ const useStyles = createUseStyles({
     flexShrink: 0,
   },
   codePanel: {
-    minHeight: 400,
+    minHeight: 200,
     marginBottom: 20,
   },
   uiAndValue: {
@@ -173,12 +173,13 @@ export default defineComponent({
               </div>
             </div>
             <div class={classes.form}>
-              <SchemaForm
-                theme={themeDefault as any}
-                schema={demo.schema}
-                onChange={handleChange}
-                value={demo.data}
-              />
+              <ThemeProvider theme={themeDefault as any}>
+                <SchemaForm
+                  schema={demo.schema}
+                  onChange={handleChange}
+                  value={demo.data}
+                />
+              </ThemeProvider>
             </div>
           </div>
         </div>
