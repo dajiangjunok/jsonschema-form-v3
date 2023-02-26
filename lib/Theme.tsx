@@ -6,7 +6,7 @@ import {
   PropType,
   provide,
 } from "vue";
-import { Theme } from "./types";
+import { Theme, SelectionWidgetNames, CommonWidgetNames } from "./types";
 
 const THEME_PROVIDER_KEY = Symbol("THEME_PROVIDER_KEY");
 
@@ -15,6 +15,7 @@ export default defineComponent({
   props: {
     theme: {
       type: Object as PropType<Theme>,
+      required: true,
     },
   },
   setup(props, { slots }) {
@@ -22,13 +23,13 @@ export default defineComponent({
 
     provide(THEME_PROVIDER_KEY, context);
 
-    return () => {
-      return slots.default && slots.default();
-    };
+    return () => slots.default && slots.default();
   },
 });
 
-export function getWidget(name: string) {
+export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
+  name: T,
+) {
   const context: ComputedRef | undefined =
     inject<ComputedRef<Theme>>(THEME_PROVIDER_KEY);
 

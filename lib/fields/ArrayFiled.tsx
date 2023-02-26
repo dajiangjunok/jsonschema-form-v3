@@ -1,12 +1,10 @@
 import { defineComponent, PropType } from "vue";
 import { createUseStyles } from "vue-jss";
 
-import { FiledPropsDefine, Schema } from "../types";
+import { FiledPropsDefine, Schema, SelectionWidgetNames } from "../types";
 
 import { useVJSFContext } from "../context";
 import { getWidget } from "../Theme";
-
-import ThemeProvider from "../Theme";
 
 const useStyles = createUseStyles({
   container: {
@@ -106,7 +104,7 @@ export default defineComponent({
   props: FiledPropsDefine,
   setup(props) {
     const context = useVJSFContext();
-    const widgetRef = getWidget("SelectionWidget");
+    // const widgetRef = getWidget("SelectionWidget");
 
     const handleArrayItemChange = (v: any, index: number) => {
       const { value } = props;
@@ -158,12 +156,14 @@ export default defineComponent({
       props.onChange(arr);
     };
 
+    const SelectionWidgetRef = getWidget(SelectionWidgetNames.SelectionWidget);
+
     return () => {
       const { schema, rootSchema, value, onChange } = props;
 
       const SchemaItem = context.SchemaItem;
       // const SelectionWidget = context.theme.widgets.SelectionWidget;
-      const SelectionWidget = widgetRef.value;
+      const SelectionWidget = SelectionWidgetRef.value;
 
       const isMultiType = Array.isArray(schema.items);
       const isSelect = schema.items && (schema.items as any).enum;
