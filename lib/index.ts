@@ -7,6 +7,8 @@ import SelectionWidget from "./widgets/Selection";
 import ThemeProvider from "./Theme";
 
 export default SchemaForm;
+export * from "./types";
+
 export {
   NumberFiled,
   StringFiled,

@@ -1,16 +1,18 @@
 <script lang="ts" setup>
 import { defineProps } from "vue";
-import { FiledPropsDefine } from "../types";
+import { FiledPropsDefine, CommonWidgetNames } from "../types";
+import { getWidget } from "../Theme";
 
 const props = defineProps(FiledPropsDefine);
+const TextWidget = getWidget(CommonWidgetNames.TextWidget).value;
 
-const handleChange = (e: any) => {
-  props.onChange(e.target.value);
+const handleChange = (v: any) => {
+  props.onChange(v);
 };
 </script>
 
 <template>
   <div class="string-field">
-    <input :value="value" type="text" @input="handleChange" />
+    <TextWidget :value="props.value" :onChange="handleChange" />
   </div>
 </template>
