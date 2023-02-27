@@ -11,7 +11,6 @@ export enum SchemaTypes {
 
 type SchemaRef = { $ref: string };
 
-// type Schema = any
 export interface Schema {
   type?: SchemaTypes | string;
   const?: any;
