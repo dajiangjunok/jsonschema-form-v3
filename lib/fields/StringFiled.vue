@@ -13,6 +13,10 @@ const handleChange = (v: any) => {
 
 <template>
   <div class="string-field">
-    <TextWidget :value="props.value" :onChange="handleChange" />
+    <TextWidget
+      :value="props.value"
+      :errors="props.errorSchema.__errors"
+      :onChange="handleChange"
+    />
   </div>
 </template>

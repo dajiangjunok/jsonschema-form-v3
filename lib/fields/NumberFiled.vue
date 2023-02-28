@@ -12,6 +12,11 @@ const handleChange = (e: any) => {
 
 <template>
   <div class="number-field">
-    <input :value="value" type="number" @input="handleChange" />
+    <input
+      :value="value"
+      type="number"
+      :errors="$props.errorSchema.__errors"
+      @input="handleChange"
+    />
   </div>
 </template>
