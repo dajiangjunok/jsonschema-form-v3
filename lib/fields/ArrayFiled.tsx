@@ -4,7 +4,7 @@ import { createUseStyles } from "vue-jss";
 import { FiledPropsDefine, Schema, SelectionWidgetNames } from "../types";
 
 import { useVJSFContext } from "../context";
-import { getWidget } from "../Theme";
+import { getWidget } from "../theme";
 
 const useStyles = createUseStyles({
   container: {
