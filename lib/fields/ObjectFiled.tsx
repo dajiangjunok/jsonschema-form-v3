@@ -1,4 +1,4 @@
-import { defineComponent, inject } from "vue";
+import { defineComponent } from "vue";
 import { FiledPropsDefine } from "../types";
 import { useVJSFContext } from "../context";
 import { isObject } from "../utils";

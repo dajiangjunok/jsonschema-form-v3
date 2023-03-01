@@ -8,14 +8,13 @@ export default defineComponent({
   props: FiledPropsDefine,
   setup(props) {
     const handleChange = (v: string) => {
-      // console.log(e)
       props.onChange(v);
     };
 
     const TextWidgetRef = getWidget(CommonWidgetNames.TextWidget);
 
     return () => {
-      const { rootSchema, errorSchema, ...rest } = props;
+      const { errorSchema, onChange, ...rest } = props;
 
       const TextWidget = TextWidgetRef.value;
 

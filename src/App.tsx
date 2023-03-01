@@ -80,6 +80,7 @@ export default defineComponent({
       schemaCode: string;
       dataCode: string;
       uiSchemaCode: string;
+      customValidate: ((data: any, errors: any) => void) | undefined;
     } = reactive({
       schema: null,
       data: {},
@@ -87,17 +88,19 @@ export default defineComponent({
       schemaCode: "",
       dataCode: "",
       uiSchemaCode: "",
+      customValidate: undefined,
     });
 
     watchEffect(() => {
       const index = selectedRef.value;
-      const d = demos[index];
+      const d: any = demos[index];
       demo.schema = d.schema;
       demo.data = d.default;
       demo.uiSchema = d.uiSchema;
       demo.schemaCode = toJson(d.schema);
       demo.dataCode = toJson(d.default);
       demo.uiSchemaCode = toJson(d.uiSchema);
+      demo.customValidate = d.customValidate;
     });
 
     const classesRef = useStyles();
@@ -181,6 +184,7 @@ export default defineComponent({
                   schema={demo.schema}
                   onChange={handleChange}
                   value={demo.data}
+                  customValidate={demo.customValidate}
                 />
               </ThemeProvider>
               <button

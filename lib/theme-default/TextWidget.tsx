@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { CommonWidgetPropsDefine, CommonWidgetDefine } from "../types";
 
 import { withFormItem } from "./FormItem";
@@ -9,11 +9,15 @@ const TextWidget: CommonWidgetDefine = withFormItem(
     props: CommonWidgetPropsDefine,
     setup(props) {
       const handelChange = (e: any) => {
-        props.onChange(e.target.value);
+        console.log(props.onChange);
+
+        const value = e.target.value;
+        e.target.value = props.value;
+        props.onChange(value);
       };
 
       return () => {
-        const { value, schema, ...rest } = props;
+        const { value } = props;
         return <input type="text" value={value} onInput={handelChange} />;
       };
     },

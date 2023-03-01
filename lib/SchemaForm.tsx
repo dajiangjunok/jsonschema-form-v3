@@ -10,11 +10,10 @@ import {
 
 import Ajv, { Options } from "ajv";
 
-import { Schema } from "./types";
+import { Schema, SchemaTypes, Theme } from "./types";
 
 import SchemaItem from "./SchemaItem";
 import { SchemaFormContextKey } from "./context";
-
 import { validateFormData, ErrorSchema } from "./validator";
 
 type A = typeof SchemaItem;
@@ -28,6 +27,7 @@ interface ContextRef {
 
 const defaultAjvOptions: Options = {
   allErrors: true,
+  jsonPointers: true,
 };
 
 export default defineComponent({
@@ -53,6 +53,9 @@ export default defineComponent({
       type: String,
       default: "zh",
     },
+    customValidate: {
+      type: Function as PropType<(data: any, errors: any) => void>,
+    },
   },
   name: "SchemaForm",
   setup(props, { slots, emit, attrs }) {
@@ -62,9 +65,11 @@ export default defineComponent({
 
     const context: any = {
       SchemaItem,
+      // theme: props.theme,
     };
 
     const errorSchemaRef: Ref<ErrorSchema> = shallowRef({});
+
     const validatorRef: Ref<Ajv.Ajv> = shallowRef() as any;
 
     watchEffect(() => {
@@ -82,11 +87,17 @@ export default defineComponent({
             doValidate() {
               console.log("--------->");
 
+              // const valid = validatorRef.value.validate(
+              //   props.schema,
+              //   props.value,
+              // ) as boolean
+
               const result = validateFormData(
                 validatorRef.value,
                 props.value,
                 props.schema,
                 props.locale,
+                props.customValidate,
               );
 
               errorSchemaRef.value = result.errorSchema;
@@ -108,10 +119,10 @@ export default defineComponent({
       return (
         <SchemaItem
           schema={schema}
-          errorSchema={errorSchemaRef.value || {}}
           rootSchema={schema}
           value={value}
           onChange={handleChange}
+          errorSchema={errorSchemaRef.value || {}}
         />
       );
     };

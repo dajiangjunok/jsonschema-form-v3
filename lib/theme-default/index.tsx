@@ -2,7 +2,6 @@
 import SelectionWidget from "./SelectionWidget";
 import TextWidget from "./TextWidget";
 import NumberWidget from "./NumberWidget";
-// import { CommonWidgetPropsDefine, CommonWidgetDefine } from "../types";
 
 // const CommonWidget: CommonWidgetDefine = defineComponent({
 //   name: "CommonWidget",
