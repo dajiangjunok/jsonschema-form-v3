@@ -35,9 +35,7 @@ export default defineComponent({
         />
       );
 
-      // return (
-      //   <input type="text" value={props.value as any} onInput={handleChange} />
-      // )
+      // return <input type="text"  value={props.value as any} />;
     };
   },
 });

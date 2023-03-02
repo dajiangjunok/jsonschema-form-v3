@@ -40,5 +40,7 @@ export default {
       color: "red",
     },
   },
-  default: "100",
+  default: {
+    color: "#f50a0a",
+  },
 };

@@ -35,7 +35,7 @@ const useStyles = createUseStyles({
     flexShrink: 0,
   },
   codePanel: {
-    minHeight: 200,
+    minHeight: 286,
     marginBottom: 20,
   },
   uiAndValue: {
@@ -147,7 +147,7 @@ export default defineComponent({
         // <VJSFThemeProvider theme={theme as any}>
         <div class={classes.container}>
           <div class={classes.menu}>
-            <h1>Vue3 JsonSchema Form</h1>
+            <span>Vue3 JsonSchema Form</span>
             <div>
               {demos.map((demo, index) => (
                 <button
