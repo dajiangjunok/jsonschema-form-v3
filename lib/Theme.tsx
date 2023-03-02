@@ -13,7 +13,6 @@ import {
   Theme,
   SelectionWidgetNames,
   CommonWidgetNames,
-  UISchema,
   CommonWidgetDefine,
   FiledPropsDefine,
 } from "./types";
