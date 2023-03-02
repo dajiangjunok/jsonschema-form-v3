@@ -159,11 +159,12 @@ export default defineComponent({
     const SelectionWidgetRef = getWidget(SelectionWidgetNames.SelectionWidget);
 
     return () => {
-      const { schema, errorSchema, rootSchema, value, onChange } = props;
+      const { schema, uiSchema, errorSchema, rootSchema, value, onChange } =
+        props;
 
       const SchemaItem = context.SchemaItem;
       // const SelectionWidget = context.theme.widgets.SelectionWidget;
-      const SelectionWidget = SelectionWidgetRef.value;
+      const SelectionWidget = (SelectionWidgetRef as any).value;
 
       const isMultiType = Array.isArray(schema.items);
       const isSelect = schema.items && (schema.items as any).enum;
@@ -171,16 +172,24 @@ export default defineComponent({
       if (isMultiType) {
         const items: Schema[] = schema.items as any;
         const arr = Array.isArray(value) ? value : [];
-        return items.map((s: Schema, index: number) => (
-          <SchemaItem
-            schema={s}
-            errorSchema={errorSchema}
-            key={index}
-            rootSchema={rootSchema}
-            value={arr[index]}
-            onChange={(v: any) => handleArrayItemChange(v, index)}
-          />
-        ));
+        return items.map((s: Schema, index: number) => {
+          const itemsUiSchema = uiSchema.items;
+          const us = Array.isArray(itemsUiSchema)
+            ? itemsUiSchema[index] || {}
+            : itemsUiSchema || {};
+
+          return (
+            <SchemaItem
+              schema={s}
+              uiSchema={us}
+              errorSchema={errorSchema}
+              key={index}
+              rootSchema={rootSchema}
+              value={arr[index]}
+              onChange={(v: any) => handleArrayItemChange(v, index)}
+            />
+          );
+        });
       } else if (!isSelect) {
         const arr = Array.isArray(value) ? value : [];
 
@@ -194,8 +203,9 @@ export default defineComponent({
               onUp={handleUp}
             >
               <SchemaItem
-                errorSchema={errorSchema}
                 schema={schema.items as Schema}
+                uiSchema={(uiSchema.items as any) || {}}
+                errorSchema={errorSchema}
                 value={v}
                 key={index}
                 rootSchema={rootSchema}

@@ -23,20 +23,27 @@ export default defineComponent({
 
     return () => {
       const { SchemaItem } = context;
-      const { schema, errorSchema, rootSchema, value } = props;
+      const { schema, errorSchema, rootSchema, value, uiSchema } = props;
 
       const properties = schema.properties || {};
       const currentValue: any = isObject(value) ? value : {};
 
       return Object.keys(properties).map((k: string, index: number) => (
-        <SchemaItem
-          schema={properties[k]}
-          errorSchema={errorSchema[k] || {}}
-          rootSchema={rootSchema}
-          value={currentValue[k]}
-          key={index}
-          onChange={(v: any) => handleObjectFieldChange(k, v)}
-        />
+        <div>
+          <SchemaItem
+            schema={properties[k]}
+            uiSchema={
+              uiSchema.properties
+                ? uiSchema.properties[k] || {}
+                : uiSchema[k] || {}
+            }
+            errorSchema={errorSchema[k] || {}}
+            rootSchema={rootSchema}
+            value={currentValue[k]}
+            key={index}
+            onChange={(v: any) => handleObjectFieldChange(k, v)}
+          />
+        </div>
       ));
     };
   },

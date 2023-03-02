@@ -65,6 +65,10 @@ export const FiledPropsDefine = {
     type: Object as PropType<Schema>,
     required: true,
   },
+  uiSchema: {
+    type: Object as PropType<UISchema>,
+    required: true,
+  },
   errorSchema: {
     type: Object as PropType<ErrorSchema>,
     required: true,
@@ -125,3 +129,13 @@ export interface Theme {
     [CommonWidgetNames.NumberWidget]: CommonWidgetDefine;
   };
 }
+
+export type UISchema = {
+  widget?: string | CommonWidgetDefine;
+  properties?: {
+    [key: string]: UISchema;
+  };
+  items?: UISchema | UISchema[];
+} & {
+  [key: string]: any;
+};

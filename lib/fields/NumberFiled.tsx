@@ -22,7 +22,7 @@ export default defineComponent({
     const NumberWidgetRef = getWidget(CommonWidgetNames.NumberWidget);
 
     return () => {
-      const NumberWidget = NumberWidgetRef.value;
+      const NumberWidget = (NumberWidgetRef as any).value;
       const { errorSchema, onChange, ...rest } = props;
       // return <input value={value as any} type="number" onInput={handleChange} />
       return (

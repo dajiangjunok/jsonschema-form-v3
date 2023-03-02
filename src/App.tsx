@@ -16,6 +16,7 @@ function toJson(data: any) {
   return JSON.stringify(data, null, 2);
 }
 
+// styles
 const useStyles = createUseStyles({
   container: {
     display: "flex",
@@ -130,6 +131,11 @@ export default defineComponent({
 
     const contextRef = ref();
 
+    async function validateForm() {
+      const res: any = await contextRef.value.doValidate();
+      console.log(res);
+    }
+
     return () => {
       const classes = classesRef.value;
       const selected = selectedRef.value;
@@ -180,18 +186,15 @@ export default defineComponent({
             <div class={classes.form}>
               <ThemeProvider theme={themeDefault}>
                 <SchemaForm
-                  contextRef={contextRef}
                   schema={demo.schema}
+                  uiSchema={demo.uiSchema || {}}
+                  contextRef={contextRef}
                   onChange={handleChange}
                   value={demo.data}
                   customValidate={demo.customValidate}
                 />
               </ThemeProvider>
-              <button
-                onClick={() => console.log(contextRef.value.doValidate())}
-              >
-                校 验
-              </button>
+              <button onClick={validateForm}>校 验</button>
             </div>
           </div>
         </div>
