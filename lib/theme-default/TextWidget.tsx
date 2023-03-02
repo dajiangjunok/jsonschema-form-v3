@@ -14,9 +14,22 @@ const TextWidget: CommonWidgetDefine = withFormItem(
         props.onChange(value);
       };
 
+      const styleRef = computed(() => {
+        return {
+          color: (props.options && props.options.color) || "black",
+        };
+      });
+
       return () => {
         const { value } = props;
-        return <input type="text" value={value} onInput={handelChange} />;
+        return (
+          <input
+            type="text"
+            value={value}
+            onInput={handelChange}
+            style={styleRef.value}
+          />
+        );
       };
     },
   }),

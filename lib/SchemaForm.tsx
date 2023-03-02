@@ -7,11 +7,19 @@ import {
   watch,
   shallowRef,
   ref,
+  computed,
 } from "vue";
 
 import Ajv, { Options } from "ajv";
 
-import { Schema, SchemaTypes, Theme, UISchema } from "./types";
+import {
+  Schema,
+  SchemaTypes,
+  Theme,
+  UISchema,
+  CustomFormat,
+  CommonWidgetDefine,
+} from "./types";
 
 import SchemaItem from "./SchemaItem";
 import { SchemaFormContextKey } from "./context";
@@ -55,6 +63,9 @@ export default defineComponent({
     customValidate: {
       type: Function as PropType<(data: any, errors: any) => void>,
     },
+    customFormats: {
+      type: [Array, Object] as PropType<CustomFormat[] | CustomFormat>,
+    },
     uiSchema: {
       type: Object as PropType<UISchema>,
     },
@@ -65,8 +76,25 @@ export default defineComponent({
       props.onChange(v);
     };
 
+    const formatMapRef = computed(() => {
+      if (props.customFormats) {
+        const customFormats = Array.isArray(props.customFormats)
+          ? props.customFormats
+          : [props.customFormats];
+
+        return customFormats.reduce((result, format) => {
+          // validatorRef.value.addFormat(format.name, format.definition);
+          result[format.name] = format.component;
+          return result;
+        }, {} as { [key: string]: CommonWidgetDefine });
+      } else {
+        return {};
+      }
+    });
+
     const context: any = {
       SchemaItem,
+      formatMapRef,
       // theme: props.theme,
     };
 
@@ -79,6 +107,16 @@ export default defineComponent({
         ...defaultAjvOptions,
         ...props.ajvOptions,
       });
+
+      if (props.customFormats) {
+        const customFormats = Array.isArray(props.customFormats)
+          ? props.customFormats
+          : [props.customFormats];
+
+        customFormats.forEach((format) => {
+          validatorRef.value.addFormat(format.name, format.definition);
+        });
+      }
     });
 
     const validateResolveRef = ref();

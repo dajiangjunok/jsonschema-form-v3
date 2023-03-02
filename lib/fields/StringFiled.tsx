@@ -12,8 +12,13 @@ export default defineComponent({
     };
 
     const TextWidgetRef = computed(() => {
-      const widgetRef = getWidget(CommonWidgetNames.TextWidget, props.uiSchema);
+      const widgetRef = getWidget(CommonWidgetNames.TextWidget, props);
       return (widgetRef as any).value;
+    });
+    const widgetOptionsRef = computed(() => {
+      const { widget, properties, items, ...rest } = props.uiSchema;
+
+      return rest;
     });
 
     return () => {
@@ -26,6 +31,7 @@ export default defineComponent({
           {...rest}
           errors={errorSchema.__errors}
           onChange={handleChange}
+          options={widgetOptionsRef.value}
         />
       );
 

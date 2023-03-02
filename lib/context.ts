@@ -1,10 +1,15 @@
+import { inject, reactive, Ref } from "vue";
+import { CommonFieldType, CommonWidgetDefine, Theme, Schema } from "./types";
+
 export const SchemaFormContextKey = Symbol("schemaFormCTX");
-import { inject } from "vue";
-import { CommonFieldType, Theme } from "./types";
 
 export function useVJSFContext() {
-  const context: { theme: Theme; SchemaItem: CommonFieldType } | undefined =
-    inject(SchemaFormContextKey);
+  const context:
+    | {
+        SchemaItem: CommonFieldType;
+        formatMapRef: Ref<{ [key: string]: CommonWidgetDefine }>;
+      }
+    | undefined = inject(SchemaFormContextKey);
 
   if (!context) {
     throw Error("SchemaForm needed");
@@ -12,3 +17,19 @@ export function useVJSFContext() {
 
   return context;
 }
+
+// export function useVJSFContext() {
+//   const context:
+//     | {
+//         SchemaItem: CommonFieldType
+//         formatMapRef: Ref<{ [key: string]: CommonWidgetDefine }>
+//         transformSchemaRef: Ref<(schema: Schema) => Schema>
+//       }
+//     | undefined = inject(SchemaFormContextKey)
+
+//   if (!context) {
+//     throw Error('SchemaForm needed')
+//   }
+
+//   return context
+// }

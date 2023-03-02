@@ -1,4 +1,5 @@
 import { PropType, defineComponent, Component } from "vue";
+import { FormatDefinition } from "ajv";
 import { ErrorSchema } from "./validator";
 
 export enum SchemaTypes {
@@ -94,6 +95,9 @@ export const CommonWidgetPropsDefine = {
     type: Object as PropType<Schema>,
     required: true,
   },
+  options: {
+    type: Object as PropType<{ [key: string]: any }>,
+  },
 } as const;
 
 export const SelectWidgetPropsDefine = {
@@ -139,3 +143,9 @@ export type UISchema = {
 } & {
   [key: string]: any;
 };
+
+export interface CustomFormat {
+  name: string;
+  definition: FormatDefinition;
+  component: CommonWidgetDefine;
+}
