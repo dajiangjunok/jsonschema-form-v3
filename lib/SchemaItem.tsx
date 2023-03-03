@@ -6,14 +6,19 @@ import NumberField from "./fields/NumberFiled";
 import StringField from "./fields/StringFiled";
 import ObjectFiled from "./fields/ObjectFiled";
 import ArrayFiled from "./fields/ArrayFiled";
+import { useVJSFContext } from "./context";
 
 export default defineComponent({
   name: "SchemaItem",
   props: FiledPropsDefine,
   setup(props) {
     // const { schema, rootSchema, value } = props;
+
+    const formContext = useVJSFContext();
     const retrievedSchemaRef = computed(() => {
-      return retrieveSchema(props.schema, props.rootSchema, props.value);
+      return formContext.transformSchemaRef.value(
+        retrieveSchema(props.schema, props.rootSchema, props.value),
+      );
     });
 
     return () => {

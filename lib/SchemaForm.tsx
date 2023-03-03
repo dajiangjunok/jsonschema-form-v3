@@ -19,6 +19,7 @@ import {
   UISchema,
   CustomFormat,
   CommonWidgetDefine,
+  CustomKeyword,
 } from "./types";
 
 import SchemaItem from "./SchemaItem";
@@ -66,6 +67,9 @@ export default defineComponent({
     customFormats: {
       type: [Array, Object] as PropType<CustomFormat[] | CustomFormat>,
     },
+    customKeywords: {
+      type: [Array, Object] as PropType<CustomKeyword[] | CustomKeyword>,
+    },
     uiSchema: {
       type: Object as PropType<UISchema>,
     },
@@ -92,14 +96,33 @@ export default defineComponent({
       }
     });
 
+    const transformSchemaRef = computed(() => {
+      if (props.customKeywords) {
+        const customKeywords = Array.isArray(props.customKeywords)
+          ? props.customKeywords
+          : [props.customKeywords];
+
+        return (schema: Schema) => {
+          let newSchema = schema;
+          customKeywords.forEach((keyword) => {
+            if ((newSchema as any)[keyword.name]) {
+              newSchema = keyword.transformSchema(schema);
+            }
+          });
+          return newSchema;
+        };
+      }
+      return (s: Schema) => s;
+    });
+
     const context: any = {
       SchemaItem,
       formatMapRef,
+      transformSchemaRef,
       // theme: props.theme,
     };
 
     const errorSchemaRef: Ref<ErrorSchema> = shallowRef({});
-
     const validatorRef: Ref<Ajv.Ajv> = shallowRef() as any;
 
     watchEffect(() => {
@@ -115,6 +138,15 @@ export default defineComponent({
 
         customFormats.forEach((format) => {
           validatorRef.value.addFormat(format.name, format.definition);
+        });
+      }
+
+      if (props.customKeywords) {
+        const customKeywords = Array.isArray(props.customKeywords)
+          ? props.customKeywords
+          : [props.customKeywords];
+        customKeywords.forEach((keyword) => {
+          validatorRef.value.addKeyword(keyword.name, keyword.deinition);
         });
       }
     });
